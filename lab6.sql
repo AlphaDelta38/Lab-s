@@ -1,0 +1,1 @@
+SELECT cities.name, region FROM cities,regions WHERE regions.name = "Nord" AND cities.region = regions.uuid  AND population > 350000;
