@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.2.0, for Win64 (x86_64)
 --
--- Host: MySQL-8.2    Database: lab7
+-- Host: MySQL-8.2    Database: lab7SecondChange
 -- ------------------------------------------------------
 -- Server version	8.2.0
 
@@ -16,6 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `category`
+--
+
+DROP TABLE IF EXISTS `category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `category`
+--
+
+LOCK TABLES `category` WRITE;
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `comment`
 --
 
@@ -24,15 +47,13 @@ DROP TABLE IF EXISTS `comment`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `comment` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `post_id` int DEFAULT NULL,
-  `responses_id` varchar(255) DEFAULT NULL,
+  `post_id` int NOT NULL,
   `responsed_id` int DEFAULT NULL,
-  `user_ip` varchar(255) DEFAULT NULL,
-  `user_name` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `user_name` varchar(100) DEFAULT NULL,
+  `comment` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +62,6 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (1,1,NULL,NULL,'192:113:33:5246','Alexander','i like this theme about super cars','2024-10-16 07:05:14'),(2,1,NULL,NULL,'112:113:33:5246','Andrei','i like this theme about donuts','2024-10-16 07:05:36'),(3,1,NULL,2,'112:113:33:5246','Andrei','i like too this theme','2024-10-16 07:07:01'),(4,1,NULL,3,'13:113:33:5246','Serega','i`m not like this theme','2024-10-16 07:07:35');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,15 +74,15 @@ DROP TABLE IF EXISTS `post`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `post` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) DEFAULT NULL,
-  `description_path` varchar(255) DEFAULT NULL,
-  `authorName` varchar(255) DEFAULT NULL,
-  `watchedAmount` int DEFAULT '0',
+  `category_id` int NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `text` text NOT NULL,
+  `author_name` varchar(100) DEFAULT NULL,
+  `watched_amount` int DEFAULT '0',
   `likes` int DEFAULT '0',
-  `category` varchar(255) DEFAULT 'forAll',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,34 +91,31 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (1,'super cars are super fast','desctiptionThree.txt',NULL,0,0,'cars','2024-10-16 07:01:16'),(2,'donuts are the best','desctiptionFour.txt',NULL,0,0,'food','2024-10-16 07:01:36');
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `raiting`
+-- Table structure for table `rating`
 --
 
-DROP TABLE IF EXISTS `raiting`;
+DROP TABLE IF EXISTS `rating`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `raiting` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `post_id` int DEFAULT NULL,
-  `user_ip` varchar(255) DEFAULT NULL,
-  `raiting` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `rating` (
+  `post_id` int NOT NULL,
+  `user_ip` varchar(50) NOT NULL,
+  `rating` int NOT NULL,
+  PRIMARY KEY (`post_id`,`user_ip`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `raiting`
+-- Dumping data for table `rating`
 --
 
-LOCK TABLES `raiting` WRITE;
-/*!40000 ALTER TABLE `raiting` DISABLE KEYS */;
-INSERT INTO `raiting` VALUES (1,2,'102:118:33:5946',5),(2,1,'102:118:33:5946',1),(3,1,'192:113:33:5246',5),(4,2,'192:113:33:5246',5);
-/*!40000 ALTER TABLE `raiting` ENABLE KEYS */;
+LOCK TABLES `rating` WRITE;
+/*!40000 ALTER TABLE `rating` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rating` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -110,4 +127,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-16 10:34:22
+-- Dump completed on 2024-10-23 23:25:28

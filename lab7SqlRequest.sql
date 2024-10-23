@@ -1,32 +1,36 @@
 CREATE TABLE post(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    title VARCHAR(255),
-    description_path VARCHAR(255),
-    authorName VARCHAR(255) DEFAULT NULL,
-    watchedAmount INT DEFAULT 0,	
+    category_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    text TEXT NOT NULL,
+    author_name VARCHAR(100) DEFAULT NULL,
+    watched_amount INT DEFAULT 0,	
     likes INT DEFAULT 0,
-    category VARCHAR(255) DEFAULT 'forAll',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
 CREATE TABLE comment(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    post_id INT,
-    responses_id VARCHAR(255) DEFAULT NULL,
+    post_id INT NOT NULL,
     responsed_id INT DEFAULT NULL,
-    user_ip VARCHAR(255),
-    user_name VARCHAR(255),
-    description VARCHAR(255),	 
+    user_name VARCHAR(100),
+    comment VARCHAR(255) NOT NULL,	 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
 CREATE TABLE raiting(
+    post_id INT NOT NULL,
+    user_ip VARCHAR(50) NOT NULL,
+    raiting INT	NOT NULL,
+    PRIMARY KEY (post_id, user_ip)
+);
+
+
+CREATE TABLE category(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    post_id INT,
-    user_ip VARCHAR(255),
-    raiting INT	
+    name VARCHAR(255) NOT NULL	
 );
 
 
