@@ -4,37 +4,34 @@
 
 
 
-CREATE TABLE performerForTask (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE tasks_users(
     user_id INT NOT NULL,
-    task_id INT NOT NULL
+    task_id INT NOT NULL,
+    PRIMARY KEY (user_id,task_id)
 );
 
 
 
-CREATE TABLE userAndProject (
-    id INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE projects_users(
     user_id INT NOT NULL,
-    project_id INT NOT NULL 
-);
-
-
-CREATE TABLE fileAndProject(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    files_id INT NOT NULL,
-    project_id INT NOT NULL 
-);
-
-CREATE TABLE fileAndTask(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    files_id INT NOT NULL,
-    task_id INT NOT NULL 
+    project_id INT NOT NULL,
+    PRIMARY KEY (user_id,project_id)
 );
 
 
 
+CREATE TABLE entity_files(
+    entity_id INT NOT NULL,
+    files_id INT NOT NULL, 
+    entity_name VARCHAR(100) NOT NULL,
+    PRIMARY KEY (entity_id, files_id)
+);
 
-CREATE TABLE task(
+
+
+
+
+CREATE TABLE tasks(
     id INT PRIMARY KEY AUTO_INCREMENT,
     project_id INT NOT NULL,
     author_id INT NOT NULL,
@@ -44,14 +41,14 @@ CREATE TABLE task(
 
 
 
-CREATE TABLE user(
+CREATE TABLE users(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL	
 );
 
 
 
-CREATE TABLE project(
+CREATE TABLE projects(
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL
 );
