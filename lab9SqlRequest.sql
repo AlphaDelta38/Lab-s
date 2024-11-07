@@ -23,7 +23,7 @@ CREATE TABLE projects_users(
 CREATE TABLE entity_files(
     entity_id INT NOT NULL,
     files_id INT NOT NULL, 
-    entity_name VARCHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
     PRIMARY KEY (entity_id, files_id)
 );
 
